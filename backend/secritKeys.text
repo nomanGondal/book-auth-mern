@@ -1,0 +1,9 @@
+{
+    "web":{
+        "client_id":"169216277182-6cjvc3ou0oraghib0mi9kpakhdpd7ord.apps.googleusercontent.com",
+        "project_id":"wise-invention-469319-i2",
+        "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+         "token_uri":"https://oauth2.googleapis.com/token",
+         "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+         "client_secret":"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",
+         "javascript_origins":["http://localhost:8080"]}}
