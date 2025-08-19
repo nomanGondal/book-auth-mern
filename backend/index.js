@@ -16,11 +16,11 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(bodyParser.json());
 
-// ✅ CORS fix: allow your frontend domain
+//  CORS fix: allow your frontend domain
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",            // local dev
+      "http://localhost:3000", // local dev
       "https://book-auth-mern.vercel.app/", // replace with actual Vercel URL
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
