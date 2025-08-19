@@ -16,20 +16,28 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(bodyParser.json());
 
-// ✅ CORS fix: allow your frontend domain
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://book-auth-mern.vercel.app"
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",            // local dev
-      "https://book-auth-mern.vercel.app", // replace with actual Vercel URL
-    ],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // allow
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// Ensure OPTIONS requests get handled
+// Handle preflight requests
 app.options("*", cors());
+
 
 // ===== Routes =====
 app.get("/", (req, res) => {
