@@ -1,35 +1,52 @@
-const express = require('express')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const authRouter = require('./routers/authrouter.js')
-const bookrouter = require('./routers/bookroutes.js')
-const productrouter = require('./routers/productrouter.js')
-const app = express()
-const dotenv = require('dotenv')
-dotenv.config()
-const port = process.env.PORT || 8080
-const connectDB = require('./models/db');
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
-//middlewares
-app.use(express.json())
-app.use(cors())
-app.use(bodyParser.json())
+const authRouter = require("./routers/authrouter.js");
+const bookRouter = require("./routers/bookroutes.js");
+const productRouter = require("./routers/productrouter.js");
+const connectDB = require("./models/db");
 
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello World!')
- console.log('Server is running on port');
-})
+dotenv.config();
+const app = express();
+const port = process.env.PORT || 8080;
 
-app.use('/auth',authRouter )
-app.use('/book',bookrouter )
-// Connect to the database and start the server
+// ===== Middlewares =====
+app.use(express.json());
+app.use(bodyParser.json());
+
+// ✅ CORS fix: allow your frontend domain
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",            // local dev
+      "https://book-auth-mern.vercel.app", // replace with actual Vercel URL
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Ensure OPTIONS requests get handled
+app.options("*", cors());
+
+// ===== Routes =====
+app.get("/", (req, res) => {
+  res.send("Hello World! Backend is running ✅");
+});
+
+app.use("/auth", authRouter);
+app.use("/book", bookRouter);
+app.use("/product", productRouter);
+
+// ===== Connect DB & Start Server =====
 connectDB()
-.then(() => {
+  .then(() => {
     app.listen(port, () => {
-      console.log(` Server running at http://localhost:${port}`);
+      console.log(` Server running on port: ${port}`);
     });
   })
   .catch((err) => {
-    console.error(' Failed to connect to DB:', err);
+    console.error(" Failed to connect to DB:", err);
   });
