@@ -40,7 +40,7 @@ const navigate = useNavigate();
         const token = JSON.parse(localStorage.getItem("user"))?.token;
         // UPDATE existing book
         const id = editingBook._id || editingBook.id; // whatever your backend uses
-        res = await fetch(`http://localhost:8080/book/updatebook/${id}`, {
+        res = await fetch(`https://book-auth-mern.onrender.com/book/updatebook/${id}`, {
   method: "PUT",
   headers: {
     "Content-Type": "application/json",
@@ -52,7 +52,7 @@ const navigate = useNavigate();
         // CREATE new book
         const token = JSON.parse(localStorage.getItem("user"))?.token;
 
-        res = await fetch("http://localhost:8080/book/addnew", {
+        res = await fetch("https://book-auth-mern.onrender.com/book/addnew", {
           method: "POST",
           headers: {
              "Content-Type": "application/json" ,
@@ -100,7 +100,7 @@ const navigate = useNavigate();
     setError("");
     try {
       const token = JSON.parse(localStorage.getItem("user"))?.token;
-    const res = await fetch("http://localhost:8080/book/mybooks", {
+    const res = await fetch("https://book-auth-mern.onrender.com/book/mybooks", {
           method: "GET",
           headers: {
              "Content-Type": "application/json" ,
@@ -139,7 +139,7 @@ const navigate = useNavigate();
       const token = JSON.parse(localStorage.getItem("user"))?.token;
       // 2. Call the delete endpoint
       const res = await fetch(
-        `http://localhost:8080/book/deletebook/${id}`,
+        `https://book-auth-mern.onrender.com/book/deletebook/${id}`,
         {
           method: "DELETE",
            headers: {

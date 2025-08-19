@@ -57,7 +57,7 @@ function Signup() {
     }
 
     try {
-      const url = "http://localhost:8080/auth/signup";
+      const url = "https://book-auth-mern.onrender.com/auth/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,10 +67,10 @@ function Signup() {
       if (!response.ok) throw new Error("Signup failed");
       await response.json();
 
-      toast.success("🎉 Signup successful!", { position: "top-center" });
+      toast.success(" Signup successful!", { position: "top-center" });
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
-      toast.error("❌ Signup failed. Please try again.", {
+      toast.error(" Signup failed. Please try again.", {
         position: "top-center",
       });
     }
